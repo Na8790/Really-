@@ -1,6 +1,9 @@
 package com.example.ui
 
 import androidx.compose.animation.*
+import androidx.compose.foundation.Image
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -1121,65 +1124,90 @@ fun ExploreTab(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .drawBehind {
-                            val brush = Brush.linearGradient(
-                                colors = listOf(Color(0xFFC68A4C).copy(alpha = 0.2f), Color(0xFF1E5E4E).copy(alpha = 0.15f)),
-                                start = Offset(0f, 0f),
-                                end = Offset(size.width, size.height)
-                            )
-                            drawRect(brush = brush)
-                        }
-                        .padding(20.dp)
+                        .height(180.dp)
                 ) {
+                    // Full-bleed panoramic Haraz sunset background
+                    Image(
+                        painter = painterResource(id = com.example.R.drawable.img_explore_hero),
+                        contentDescription = "Haraz Mountains",
+                        modifier = Modifier.fillMaxSize(),
+                        contentScale = ContentScale.Crop
+                    )
+                    // High-contrast vertical scrim
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(
+                                Brush.verticalGradient(
+                                    colors = listOf(
+                                        Color.Black.copy(alpha = 0.2f),
+                                        Color.Black.copy(alpha = 0.85f)
+                                    )
+                                )
+                            )
+                    )
                     Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(20.dp),
+                        verticalAlignment = Alignment.Bottom,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Column(modifier = Modifier.weight(1f)) {
                             Text(
                                 text = if (isArabic) "اكتشف اليمن الأصيل" else "Discover Authentic Yemen",
-                                fontSize = 20.sp,
+                                fontSize = 21.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.primary
+                                color = Color.White
                             )
-                            Spacer(modifier = Modifier.height(6.dp))
+                            Spacer(modifier = Modifier.height(4.dp))
                             Text(
                                 text = if (isArabic) {
                                     "تجارب محلية يصنعها السكان، لتخوض مغامرات حقيقية لا تنساها."
                                 } else {
                                     "Genuine host-led local experiences, crafts, foods, and deep nature."
                                 },
-                                fontSize = 12.sp,
-                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
-                                lineHeight = 18.sp
+                                fontSize = 11.sp,
+                                color = Color.White.copy(alpha = 0.85f),
+                                lineHeight = 16.sp
                             )
                             if (isHostMode) {
-                                Spacer(modifier = Modifier.height(12.dp))
+                                Spacer(modifier = Modifier.height(10.dp))
                                 Button(
                                     onClick = onAddExperienceClick,
                                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.tertiary),
-                                    shape = RoundedCornerShape(8.dp)
+                                    shape = RoundedCornerShape(8.dp),
+                                    contentPadding = PaddingValues(horizontal = 12.dp, vertical = 4.dp),
+                                    modifier = Modifier.height(32.dp)
                                 ) {
-                                    Icon(Icons.Default.Add, contentDescription = null, modifier = Modifier.size(16.dp))
-                                    Spacer(modifier = Modifier.width(6.dp))
+                                    Icon(Icons.Default.Add, contentDescription = null, modifier = Modifier.size(14.dp), tint = Color.White)
+                                    Spacer(modifier = Modifier.width(4.dp))
                                     Text(
                                         text = if (isArabic) "استضف تجربة جديدة" else "Publish Experience",
-                                        fontSize = 11.sp,
-                                        fontWeight = FontWeight.Bold
+                                        fontSize = 10.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color.White
                                     )
                                 }
                             }
                         }
 
-                        // Traditional Qamariyah visual element
-                        Box(
+                        // Traditional Qamariyah visual element in an elegant Glassmorphic Ring
+                        Surface(
+                            color = Color.White.copy(alpha = 0.18f),
+                            shape = CircleShape,
                             modifier = Modifier
-                                .size(90.dp)
-                                .padding(start = 12.dp),
-                            contentAlignment = Alignment.Center
+                                .padding(start = 12.dp)
+                                .size(84.dp)
+                                .border(1.dp, Color.White.copy(alpha = 0.3f), CircleShape),
+                            shadowElevation = 4.dp
                         ) {
-                            QamariyahWindowDrawing(modifier = Modifier.fillMaxSize())
+                            Box(
+                                modifier = Modifier.padding(8.dp),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                QamariyahWindowDrawing(modifier = Modifier.fillMaxSize())
+                            }
                         }
                     }
                 }
@@ -1472,24 +1500,55 @@ fun AiPlannerTab(
                 shape = RoundedCornerShape(20.dp),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
             ) {
-                Column(modifier = Modifier.padding(20.dp)) {
-                    Text(
-                        text = if (isArabic) "مخطط الرحلات الذكي بالذكاء الاصطناعي" else "Smart AI Travel Planner",
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(180.dp)
+                ) {
+                    // Full-bleed modern digital travel planner illustration
+                    Image(
+                        painter = painterResource(id = com.example.R.drawable.img_ai_planner),
+                        contentDescription = "Smart AI Planner",
+                        modifier = Modifier.fillMaxSize(),
+                        contentScale = ContentScale.Crop
                     )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        text = if (isArabic) {
-                            "أدخل اهتماماتك وميزانيتك، وسيقوم الذكاء الاصطناعي (Gemini) بتصميم برنامج سياحي متكامل ومخصص لك في أرجاء اليمن."
-                        } else {
-                            "Specify your interests and budget, and Gemini AI will draft a complete authentic daily itinerary in Yemen."
-                        },
-                        fontSize = 12.sp,
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
-                        lineHeight = 18.sp
+                    // High-contrast gradient scrim to ensure extreme readability
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(
+                                Brush.verticalGradient(
+                                    colors = listOf(
+                                        Color.Black.copy(alpha = 0.2f),
+                                        Color.Black.copy(alpha = 0.85f)
+                                    )
+                                )
+                            )
                     )
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(20.dp),
+                        verticalArrangement = Arrangement.Bottom
+                    ) {
+                        Text(
+                            text = if (isArabic) "مخطط الرحلات الذكي بالذكاء الاصطناعي" else "Smart AI Travel Planner",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = if (isArabic) {
+                                "أدخل اهتماماتك وميزانيتك، وسيقوم الذكاء الاصطناعي (Gemini) بتصميم برنامج سياحي متكامل ومخصص لك في أرجاء اليمن."
+                            } else {
+                                "Specify your interests and budget, and Gemini AI will draft a complete authentic daily itinerary in Yemen."
+                            },
+                            fontSize = 11.sp,
+                            color = Color.White.copy(alpha = 0.85f),
+                            lineHeight = 16.sp
+                        )
+                    }
                 }
             }
         }
@@ -2265,21 +2324,35 @@ fun ProfileTab(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(16.dp)
             ) {
-                Column(
+                Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .drawBehind {
-                            val brush = Brush.linearGradient(
-                                colors = listOf(Color(0xFFC68A4C), Color(0xFFD97A3E)),
-                                start = Offset(0f, 0f),
-                                end = Offset(size.width, size.height)
-                            )
-                            drawRect(brush = brush)
-                        }
-                        .padding(20.dp)
+                        .height(130.dp)
                 ) {
+                    // Full-bleed traditional Yemeni architectural vector pattern background
+                    Image(
+                        painter = painterResource(id = com.example.R.drawable.img_profile_banner),
+                        contentDescription = "Yemeni Patterns",
+                        modifier = Modifier.fillMaxSize(),
+                        contentScale = ContentScale.Crop
+                    )
+                    // Gradient overlay with primary clay brown / emerald yemen
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(
+                                Brush.linearGradient(
+                                    colors = listOf(
+                                        Color(0xFFC68A4C).copy(alpha = 0.85f),
+                                        Color(0xFF1E5E4E).copy(alpha = 0.9f)
+                                    )
+                                )
+                            )
+                    )
                     Row(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(20.dp),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -2290,7 +2363,7 @@ fun ProfileTab(
                                 fontSize = 12.sp,
                                 fontWeight = FontWeight.Bold
                             )
-                            Spacer(modifier = Modifier.height(6.dp))
+                            Spacer(modifier = Modifier.height(4.dp))
                             Text(
                                 text = "${currencyFormatter.format(user?.walletBalanceYer ?: 0.0)} YER",
                                 color = Color.White,
@@ -2314,7 +2387,7 @@ fun ProfileTab(
                         ) {
                             Text(
                                 text = if (isArabic) "شحن الرصيد" else "Load Funds",
-                                color = Color(0xFF9E6229),
+                                color = Color(0xFF1E5E4E),
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 12.sp
                             )
